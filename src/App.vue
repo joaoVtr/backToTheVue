@@ -9,7 +9,7 @@
     <br />
     <span v-text="name"> </span>
   </div>
-  <br />
+  <br /><br />
 
   <div>
     <div>On CLick</div>
@@ -19,10 +19,24 @@
     </div>
   </div>
   <br />
+  <br />
   <div>
     <div>Computed Properties</div>
     <div>{{ user.name }} {{ user.last_name }}</div>
     <div>{{ fullName }}</div>
+  </div>
+  <br /><br />
+  <div>
+    Observadores
+    <br />
+    <input type="text" v-model="observer" /><br />
+    {{ observer }}
+    <br />
+    <input type="text" v-model="objTest.name" />
+    <br />
+    <input type="text" v-model="objTest.second" />
+    <br />
+    {{ objTest }}
   </div>
 </template>
 
@@ -45,11 +59,33 @@ export default {
         name: "joao",
         last_name: "vitor",
       },
+      observer: "euu",
+
+      objTest: {
+        name: "joao",
+        second: "vitor",
+      },
     };
   },
   computed: {
     fullName() {
       return this.user.name + " " + this.user.last_name + " computed";
+    },
+  },
+  watch: {
+    observer(newV, oldV) {
+      this.consoleTest(newV, oldV);
+    },
+    objTest: {
+      handler() {
+        console.log("testObj alterado");
+      },
+      deep: true,
+    },
+  },
+  methods: {
+    consoleTest(newV, oldV) {
+      console.log(this.observer, oldV);
     },
   },
 };
