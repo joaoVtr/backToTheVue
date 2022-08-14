@@ -1,9 +1,18 @@
 <template>
-  <header class="header">Header</header>
+  <header class="header">
+    <h2 v-if="$slots.title">
+      <slot name="title" />
+    </h2>
+    <slot name="description" />
+  </header>
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    console.log(this.$slots);
+  },
+};
 </script>
 
 <style>

@@ -1,5 +1,29 @@
 <template>
-  <TheHeader v-show="showHeader" />
+  <TheHeader v-show="showHeader">
+    <template v-slot:title> The Header </template>
+    <template v-slot:description>
+      <h3>teste description</h3>
+    </template>
+  </TheHeader>
+  <br />
+  <br />
+  <BaseCard></BaseCard>
+  <br />
+  <BaseAlert
+    v-show="showAlert"
+    variant="success"
+    :text="msg"
+    @close="onClose()"
+  >
+    Success
+  </BaseAlert>
+
+  <BaseAlert v-show="showAlert" variant="danger" @close="onClose()">
+    Error
+  </BaseAlert>
+  <br />
+  <br />
+
   <img alt="Vue logo" src="./assets/logo.png" />
   <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
   <div>
@@ -43,15 +67,21 @@
 <script>
 // import HelloWorld from "./components/HelloWorld.vue";
 import TheHeader from "./components/TheHeader.vue";
+import BaseCard from "@/components/BaseCard.vue";
+import BaseAlert from "./components/BaseAlert.vue";
 
 export default {
   name: "App",
   components: {
     // HelloWorld,
     TheHeader,
+    BaseCard,
+    BaseAlert,
   },
   data() {
     return {
+      msg: "Seu formulário foi enviado com sucesso",
+      showAlert: true,
       showHeader: true,
       name: "joao",
       test: "",
@@ -65,6 +95,7 @@ export default {
         name: "joao",
         second: "vitor",
       },
+      testHook: "test_hoook",
     };
   },
   computed: {
@@ -87,7 +118,50 @@ export default {
     consoleTest(newV, oldV) {
       console.log(this.observer, oldV);
     },
+    onClose() {
+      this.showAlert = false;
+    },
   },
+  // beforeCreate() {
+  //   console.log("Estado: ", this.testHook);
+  //   console.log("DOM: ", this.$el);
+  //   console.log("beforeCreate");
+  // },
+  // created() {
+  //   console.log("Estado: ", this.testHook);
+  //   console.log("DOM: ", this.$el);
+  //   console.log("created");
+  // },
+  // beforeMount() {
+  //   console.log("Estado: ", this.testHook);
+  //   console.log("DOM: ", this.$el);
+  //   console.log("beforeMount");
+  // },
+  // mounted() {
+  //   console.log("Estado: ", this.testHook);
+  //   console.log("DOM: ", this.$el);
+  //   console.log("mounted");
+  // },
+  // beforeUnmount() {
+  //   console.log("Estado: ", this.testHook);
+  //   console.log("DOM: ", this.$el);
+  //   console.log("beforeUnmount");
+  // },
+  // unmounted() {
+  //   console.log("Estado: ", this.testHook);
+  //   console.log("DOM: ", this.$el);
+  //   console.log("unmounted");
+  // },
+  // beforeUpdate() {
+  //   console.log("Estado: ", this.testHook);
+  //   console.log("DOM: ", this.$el);
+  //   console.log("beforeUpadte");
+  // },
+  // updated() {
+  //   console.log("Estado: ", this.testHook);
+  //   console.log("DOM: ", this.$el);
+  //   console.log("updated");
+  // },
 };
 </script>
 
